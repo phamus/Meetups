@@ -2,12 +2,7 @@
   <v-app>
     <v-navigation-drawer temporary absolute v-model="sideNav">
       <v-list>
-        <v-list-item
-          v-for="item in menuItems"
-          :key="item.title"
-          router
-          :to="item.link"
-        >
+        <v-list-item v-for="item in menuItems" :key="item.title" router :to="item.link">
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -18,15 +13,10 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar dense dark class="primary" max-height="48px">
-      <v-app-bar-nav-icon
-        @click.native.stop="sideNav = !sideNav"
-        class="hidden-sm-and-up"
-      ></v-app-bar-nav-icon>
-      <v-toolbar-title
-        ><router-link to="/" tag="span" style="cursor: pointer"
-          >Title</router-link
-        ></v-toolbar-title
-      >
+      <v-app-bar-nav-icon @click.stop="sideNav = !sideNav" class="hidden-sm-and-up"></v-app-bar-nav-icon>
+      <v-toolbar-title>
+        <router-link to="/" tag="span" style="cursor: pointer">Title</router-link>
+      </v-toolbar-title>
 
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
@@ -34,7 +24,6 @@
           text
           v-for="item in menuItems"
           :key="item.title"
-          router
           :to="item.link"
           style="font-size:11px"
         >
@@ -61,8 +50,8 @@ export default {
       { icon: "room", title: "Organise Meetups", link: "/meetup/new" },
       { icon: "person", title: "Profile", link: "/profile" },
       { icon: "face", title: "Signup", link: "/signin" },
-      { icon: "lock_open", title: "Sign in", link: "/signup" },
-    ],
-  }),
+      { icon: "lock_open", title: "Sign in", link: "/signup" }
+    ]
+  })
 };
 </script>
