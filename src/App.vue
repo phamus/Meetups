@@ -1,8 +1,13 @@
 <template>
   <v-app>
-    <v-navigation-drawer absolute v-model="sideNav">
+    <v-navigation-drawer temporary absolute v-model="sideNav">
       <v-list>
-        <v-list-item v-for="item in menuItems" :key="item.title">
+        <v-list-item
+          v-for="item in menuItems"
+          :key="item.title"
+          router
+          :to="item.link"
+        >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -17,11 +22,22 @@
         @click.native.stop="sideNav = !sideNav"
         class="hidden-sm-and-up"
       ></v-app-bar-nav-icon>
-      <v-toolbar-title>Title</v-toolbar-title>
+      <v-toolbar-title
+        ><router-link to="/" tag="span" style="cursor: pointer"
+          >Title</router-link
+        ></v-toolbar-title
+      >
 
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn text v-for="item in menuItems" :key="item.title">
+        <v-btn
+          text
+          v-for="item in menuItems"
+          :key="item.title"
+          router
+          :to="item.link"
+          style="font-size:11px"
+        >
           <v-icon left>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
@@ -41,11 +57,11 @@ export default {
   data: () => ({
     sideNav: false,
     menuItems: [
-      { icon: "supervisor_account", title: "View Meetups" },
-      { icon: "room", title: "Organise Meetups" },
-      { icon: "person", title: "Profile" },
-      { icon: "face", title: "Signup" },
-      { icon: "lock_open", title: "Sign in" },
+      { icon: "supervisor_account", title: "View Meetups", link: "/meetups" },
+      { icon: "room", title: "Organise Meetups", link: "/meetup/new" },
+      { icon: "person", title: "Profile", link: "/profile" },
+      { icon: "face", title: "Signup", link: "/signin" },
+      { icon: "lock_open", title: "Sign in", link: "/signup" },
     ],
   }),
 };
