@@ -4,12 +4,21 @@
       <v-flex xs12>
         <v-card>
           <v-card-title>
-            <h5 class="primary--text">My Meetup</h5>
+            <h5 class="primary--text">{{ meetup.title }}</h5>
           </v-card-title>
-          <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="400px"></v-img>
+          <v-img :src="meetup.imageUrl" height="400px"></v-img>
           <v-card-text>
-            <h4 class="primary--text">12 June, 2020 - Where it takes place</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora officiis cumque soluta dignissimos esse, ipsum ea aspernatur, ex ducimus earum quidem dolores voluptates, veritatis necessitatibus deleniti voluptatem blanditiis at voluptate!Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora officiis cumque soluta dignissimos esse, ipsum ea aspernatur, ex ducimus earum quidem dolores voluptates, veritatis necessitatibus deleniti voluptatem blanditiis at voluptate!</p>
+            <h4 class="primary--text">{{ meetup.date }}</h4>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
+              officiis cumque soluta dignissimos esse, ipsum ea aspernatur, ex
+              ducimus earum quidem dolores voluptates, veritatis necessitatibus
+              deleniti voluptatem blanditiis at voluptate!Lorem ipsum dolor sit
+              amet consectetur adipisicing elit. Tempora officiis cumque soluta
+              dignissimos esse, ipsum ea aspernatur, ex ducimus earum quidem
+              dolores voluptates, veritatis necessitatibus deleniti voluptatem
+              blanditiis at voluptate!
+            </p>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -20,3 +29,14 @@
     </v-layout>
   </v-container>
 </template>
+
+<script>
+export default {
+  props: ["id"],
+  computed: {
+    meetup() {
+      return this.$store.getters.loadedMeetup(this.id);
+    },
+  },
+};
+</script>
