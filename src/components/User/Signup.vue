@@ -74,11 +74,25 @@ export default {
       return this.password !== this.confirmPassword
         ? "password doesnt match"
         : true;
+    },
+
+    user() {
+      return this.$store.getters.user;
+    }
+  },
+  watch: {
+    user(value) {
+      if (value !== null && value !== undefined) {
+        this.$router.push("/");
+      }
     }
   },
   methods: {
     signUp() {
-      console.log({ email: this.email, password: this.password });
+      this.$store.dispatch("signUp", {
+        email: this.email,
+        password: this.password
+      });
     }
   }
 };
