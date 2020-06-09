@@ -10,14 +10,18 @@ export const store = new Vuex.Store({
         title: "Lagos",
         imageUrl:
           "https://cdn.cfr.org/sites/default/files/styles/article_header_l_16x9_600px/public/image/2019/08/Nigeria-Lagos-Victoria-Island-Urbanization.jpg?h=49d06cac",
-        date: "2020-06-08",
+        date: new Date(),
+        location: "Lagos",
+        description: "Its Lagos",
       },
       {
         id: "1wefgy6tgygytre",
         title: "Abuja",
         imageUrl:
           "https://www.aljazeera.com/mritems/imagecache/mbdxxlarge/mritems/Images/2018/4/9/9dc3087797834cbdb39040a7d1e564c2_18.jpg",
-        date: "2020-06-07",
+        date: new Date(),
+        location: "Abuja",
+        description: "Its Abuja",
       },
     ],
     user: {
@@ -38,6 +42,7 @@ export const store = new Vuex.Store({
         imageUrl: payload.imageUrl,
         description: payload.description,
         date: payload.date,
+        id: "123eft6tgy",
       };
       commit("createMeetup", meetup);
     },

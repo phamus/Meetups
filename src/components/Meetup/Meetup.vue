@@ -8,17 +8,8 @@
           </v-card-title>
           <v-img :src="meetup.imageUrl" height="400px"></v-img>
           <v-card-text>
-            <h4 class="primary--text">{{ meetup.date }}</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
-              officiis cumque soluta dignissimos esse, ipsum ea aspernatur, ex
-              ducimus earum quidem dolores voluptates, veritatis necessitatibus
-              deleniti voluptatem blanditiis at voluptate!Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Tempora officiis cumque soluta
-              dignissimos esse, ipsum ea aspernatur, ex ducimus earum quidem
-              dolores voluptates, veritatis necessitatibus deleniti voluptatem
-              blanditiis at voluptate!
-            </p>
+            <h4 class="primary--text">{{ meetup.date | date }} -- {{meetup.location}}</h4>
+            <p>{{meetup.description}}</p>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -36,7 +27,7 @@ export default {
   computed: {
     meetup() {
       return this.$store.getters.loadedMeetup(this.id);
-    },
-  },
+    }
+  }
 };
 </script>
