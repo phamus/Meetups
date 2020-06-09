@@ -75,7 +75,7 @@ export const store = new Vuex.Store({
         })
         .catch((error) => {
           commit("setLoading", false);
-          commit("setError", error.message);
+          commit("setError", error);
         });
     },
 
@@ -95,8 +95,11 @@ export const store = new Vuex.Store({
         })
         .catch((error) => {
           commit("setLoading", false);
-          commit("setError", error.message);
+          commit("setError", error);
         });
+    },
+    clearError({ commit }) {
+      commit("clearError");
     },
   },
   getters: {

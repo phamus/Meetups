@@ -11,7 +11,9 @@
       <v-col cols="12" md="6">
         <v-row no-gutters class="pa-2">
           <v-col cols="12" md="8" offset-md="2">
-            <app-alert @dismissed="onDismissed"></app-alert>
+            <div v-if="error">
+              <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+            </div>
             <h3 class="mt-4 mb-4">SignIn Form</h3>
             <v-form @submit.prevent="onSignIn">
               <v-text-field
@@ -63,6 +65,9 @@ export default {
   computed: {
     user() {
       return this.$store.getters.user;
+    },
+    error() {
+      return this.$store.getters.error;
     }
   },
   watch: {
@@ -80,7 +85,7 @@ export default {
       });
     },
     onDismissed() {
-      console.log("Dismissed");
+      this.$store.dispatch("clearError");
     }
   }
 };
