@@ -6,13 +6,14 @@ import routes from "./router";
 import { store } from "./store";
 import DateFilter from "./filters/date";
 import * as firebase from "firebase";
+import Alert from "./components/shared/Alert";
 
 Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
   mode: "history",
 });
-
+Vue.component("app-alert", Alert);
 Vue.filter("date", DateFilter);
 Vue.config.productionTip = false;
 

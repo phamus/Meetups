@@ -11,6 +11,7 @@
       <v-col cols="12" md="6">
         <v-row no-gutters class="pa-2">
           <v-col cols="12" md="8" offset-md="2">
+            <app-alert @dismissed="onDismissed"></app-alert>
             <h3 class="mt-4 mb-4">SignIn Form</h3>
             <v-form @submit.prevent="onSignIn">
               <v-text-field
@@ -77,6 +78,9 @@ export default {
         email: this.email,
         password: this.password
       });
+    },
+    onDismissed() {
+      console.log("Dismissed");
     }
   }
 };

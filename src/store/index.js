@@ -26,6 +26,8 @@ export const store = new Vuex.Store({
       },
     ],
     user: null,
+    loading: false,
+    error: null,
   },
   mutations: {
     createMeetup(state, payload) {
@@ -33,6 +35,15 @@ export const store = new Vuex.Store({
     },
     setUser(state, payload) {
       state.user = payload;
+    },
+    setLoading(state, payload) {
+      state.loading = payload;
+    },
+    setError(state, payload) {
+      state.error = payload;
+    },
+    clearError(state) {
+      state.error = null;
     },
   },
   actions: {
@@ -48,31 +59,44 @@ export const store = new Vuex.Store({
       commit("createMeetup", meetup);
     },
     signUp({ commit }, payload) {
+      commit("setLoading", true);
+      commit("clearError");
       firebase
         .auth()
         .createUserWithEmailAndPassword(payload.email, payload.password)
         .then((data) => {
+          commit("setLoading", false);
+
           const newUser = {
             id: data.user.uid,
             registeredMeetups: [],
           };
           commit("setUser", newUser);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          commit("setLoading", false);
+          commit("setError", error.message);
+        });
     },
 
     signIn({ commit }, payload) {
+      commit("setLoading", true);
+      commit("clearError");
       firebase
         .auth()
         .signInWithEmailAndPassword(payload.email, payload.password)
         .then((data) => {
+          commit("setLoading", false);
           const newUser = {
             id: data.user.uid,
             registeredMeetups: [],
           };
           commit("setUser", newUser);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          commit("setLoading", false);
+          commit("setError", error.message);
+        });
     },
   },
   getters: {
@@ -93,6 +117,12 @@ export const store = new Vuex.Store({
     },
     user(state) {
       return state.user;
+    },
+    loading(state) {
+      return state.loading;
+    },
+    error(state) {
+      return state.error;
     },
   },
 });
