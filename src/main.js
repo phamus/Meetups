@@ -17,6 +17,11 @@ Vue.component("app-alert", Alert);
 Vue.filter("date", DateFilter);
 Vue.config.productionTip = false;
 
+router.beforeEach((to, from, next) => {
+  store.dispatch("clearError");
+  next();
+});
+
 new Vue({
   vuetify,
   router,
@@ -30,5 +35,7 @@ new Vue({
       projectId: "storyblog",
       storageBucket: "storyblog.appspot.com",
     });
+
+    this.$store.dispatch("loadMeetups");
   },
 }).$mount("#app");

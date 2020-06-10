@@ -3,7 +3,7 @@
     <v-row no-gutters>
       <v-col cols="12" md="6">
         <img
-          src="https://freelancer-free.johnleider.com/img/welcome.30b63204.png"
+          src="https://freelancer-free.johnleider.com/img/aboutme.f240a572.png"
           alt="image"
           width="100%"
         />
@@ -38,7 +38,14 @@
                 v-model="password"
               ></v-text-field>
 
-              <v-btn class="primary" type="submit">SignUp</v-btn>
+              <v-btn class="primary" :loading="loading" :disabled="loading" type="submit">
+                Signin
+                <template v-slot:loader>
+                  <span class="custom-loader">
+                    <v-icon light>cached</v-icon>
+                  </span>
+                </template>
+              </v-btn>
             </v-form>
           </v-col>
         </v-row>
@@ -68,6 +75,9 @@ export default {
     },
     error() {
       return this.$store.getters.error;
+    },
+    loading() {
+      return this.$store.getters.loading;
     }
   },
   watch: {
@@ -90,3 +100,4 @@ export default {
   }
 };
 </script>
+

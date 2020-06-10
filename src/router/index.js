@@ -5,13 +5,33 @@ import Profile from "../components/User/Profile";
 import Signin from "../components/User/Signin";
 import Signup from "../components/User/Signup";
 import Meetup from "../components/Meetup/Meetup";
+import AuthGuard from "./auth-guard";
 
 const routes = [
   { path: "/", name: "Home", component: Home },
-  { path: "/meetups", name: "Meetups", component: Meetups },
-  { path: "/meetup/new", name: "CreateMeetup", component: CreateMeetup },
-  { path: "/meetups/:id", name: "Meetup", props: true, component: Meetup },
-  { path: "/profile", name: "Profile", component: Profile },
+  {
+    path: "/meetups",
+    name: "Meetups",
+    component: Meetups,
+  },
+  {
+    path: "/meetup/new",
+    name: "CreateMeetup",
+    component: CreateMeetup,
+    beforeEnter: AuthGuard,
+  },
+  {
+    path: "/meetups/:id",
+    name: "Meetup",
+    props: true,
+    component: Meetup,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
+    beforeEnter: AuthGuard,
+  },
   { path: "/signin", name: "Signin", component: Signin },
   { path: "/signup", name: "Signup", component: Signup },
 ];

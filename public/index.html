@@ -19,6 +19,44 @@
       rel="stylesheet"
     />
   </head>
+  <style>
+    .custom-loader {
+      animation: loader 1s infinite;
+      display: flex;
+    }
+    @-moz-keyframes loader {
+      from {
+        transform: rotate(0);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    @-webkit-keyframes loader {
+      from {
+        transform: rotate(0);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    @-o-keyframes loader {
+      from {
+        transform: rotate(0);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    @keyframes loader {
+      from {
+        transform: rotate(0);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
   <body>
     <noscript>
       <strong
@@ -27,6 +65,7 @@
         continue.</strong
       >
     </noscript>
+
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
