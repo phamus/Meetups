@@ -19,6 +19,7 @@ Vue.config.productionTip = false;
 
 router.beforeEach((to, from, next) => {
   store.dispatch("clearError");
+  store.dispatch("stopLoading");
   next();
 });
 
@@ -33,7 +34,13 @@ new Vue({
       authDomain: "storyblog.firebaseapp.com",
       databaseURL: "https://storyblog.firebaseio.com",
       projectId: "storyblog",
-      storageBucket: "storyblog.appspot.com",
+      storageBucket: "gs://storyblog.appspot.com",
+    });
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        return this.$store.dispatch("autoSignin", user);
+      }
     });
 
     this.$store.dispatch("loadMeetups");

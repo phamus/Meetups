@@ -34,16 +34,14 @@
               ></v-text-field>
             </v-flex>
             <v-flex xs12 sm6 offset-sm3>
-              <v-text-field
-                name="imageUrl"
-                :rules="rules.name"
-                label="Image Url"
-                id="imageUrl"
-                v-model="imageUrl"
+              <v-file-input
+                label="File input"
                 outlined
-                dense
-                required
-              ></v-text-field>
+                prepend-icon="mdi-camera"
+                v-model="file"
+                accept="image/png, image/jpeg, image/bmp"
+                @change="onFilePicked"
+              ></v-file-input>
             </v-flex>
             <v-flex xs12 sm6 offset-sm3>
               <img :src="imageUrl" height="150" />
@@ -92,9 +90,11 @@ export default {
     title: "",
     location: "",
     imageUrl: "",
+    image: null,
     description: "",
     date: new Date().toISOString().substr(0, 10),
     time: new Date(),
+    file: [],
     rules: {
       name: [val => (val || "").length > 0 || "This field is required"]
     }
@@ -130,13 +130,22 @@ export default {
       const meetUpData = {
         title: this.title,
         location: this.location,
-        imageUrl: this.imageUrl,
+        image: this.file,
         description: this.description,
         date: this.submittableDateTime
       };
 
       this.$store.dispatch("createMeetup", meetUpData);
       this.$router.push("/meetups");
+    },
+    onFilePicked() {
+      let files = this.file;
+      const fileReader = new FileReader();
+      fileReader.addEventListener("load", () => {
+        this.imageUrl = fileReader.result;
+      });
+
+      fileReader.readAsDataURL(files);
     }
   }
 };

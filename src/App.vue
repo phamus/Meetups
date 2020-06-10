@@ -10,12 +10,20 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item v-if="userIsAuthenticated" @click="onLogout">
+          <v-list-item-action>
+            <v-icon>exit_to_app</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar dense dark class="primary" max-height="48px">
       <v-app-bar-nav-icon @click.stop="sideNav = !sideNav" class="hidden-sm-and-up"></v-app-bar-nav-icon>
       <v-toolbar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">Title</router-link>
+        <router-link to="/" tag="span" style="cursor: pointer">Meetups</router-link>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -29,6 +37,9 @@
         >
           <v-icon left>{{ item.icon }}</v-icon>
           {{ item.title }}
+        </v-btn>
+        <v-btn v-if="userIsAuthenticated" @click="onLogout" text style="font-size:11px">
+          <v-icon left>exit_to_app</v-icon>Logout
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -70,6 +81,11 @@ export default {
         this.$store.getters.user !== null &&
         this.$store.getters.user !== undefined
       );
+    }
+  },
+  methods: {
+    onLogout() {
+      return this.$store.dispatch("logout");
     }
   }
 };
