@@ -47,7 +47,8 @@ new Vue({
 
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        return this.$store.dispatch("autoSignin", user);
+        this.$store.dispatch("autoSignin", user);
+        this.$store.dispatch("fetchUserData");
       }
     });
 
