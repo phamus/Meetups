@@ -17,6 +17,20 @@ export const store = new Vuex.Store({
     createMeetup(state, payload) {
       state.loadedMeetups.push(payload);
     },
+    updateMeetup(state, payload) {
+      const meetup = state.loadedMeetups.find((meetup) => {
+        return meetup.id === payload.id;
+      });
+      if (payload.title) {
+        meetup.title = payload.title;
+      }
+      if (payload.description) {
+        meetup.description = payload.description;
+      }
+      if (payload.date) {
+        meetup.date = payload.date;
+      }
+    },
     setUser(state, payload) {
       state.user = payload;
     },
@@ -47,6 +61,7 @@ export const store = new Vuex.Store({
               imageUrl: obj[key].imageUrl,
               description: obj[key].description,
               date: obj[key].date,
+              location: obj[key].location,
               creator: obj[key].creator,
             });
           }
@@ -89,7 +104,7 @@ export const store = new Vuex.Store({
           return fileData.ref.getDownloadURL();
         })
         .then((data) => {
-          console.log(data);
+          imageUrl = data;
           return firebase
             .database()
             .ref("meetups")
@@ -104,6 +119,37 @@ export const store = new Vuex.Store({
           });
         })
         .catch((error) => console.log(error));
+    },
+    updateMeetupData({ commit }, payload) {
+      commit("setLoading", true);
+      const updateObj = {};
+      if (payload.title) {
+        updateObj.title = payload.title;
+      }
+      if (payload.description) {
+        updateObj.description = payload.title;
+      }
+      if (payload.date) {
+        updateObj.date = payload.date.toISOString();
+      }
+      firebase
+        .database()
+        .ref("meetups")
+        .child(payload.id)
+        .update(updateObj)
+        .then(() => {
+          commit("setLoading", false);
+          commit("updateMeetup", {
+            id: payload.id,
+            title: updateObj.title,
+            description: updateObj.description,
+            date: updateObj.date,
+          });
+        })
+        .catch((error) => {
+          commit("setLoading", false);
+          console.log(error);
+        });
     },
     signUp({ commit }, payload) {
       commit("setLoading", true);

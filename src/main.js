@@ -7,6 +7,10 @@ import { store } from "./store";
 import DateFilter from "./filters/date";
 import * as firebase from "firebase";
 import Alert from "./components/shared/Alert";
+import EditMeetupDetailsDialog from "./components/Meetup/Edit/EditMeetyupDetailsDialog";
+import EditMeetupDateDialog from "./components/Meetup/Edit/EditMeetupDateDialog";
+import EditMeetupTimeDialog from "./components/Meetup/Edit/EditMeetupTimeDialog";
+import RegisterDialog from "./components/Meetup/Registeration/RegisterDialog";
 
 Vue.use(VueRouter);
 const router = new VueRouter({
@@ -14,6 +18,10 @@ const router = new VueRouter({
   mode: "history",
 });
 Vue.component("app-alert", Alert);
+Vue.component("app-edit-meetup-details-dialog", EditMeetupDetailsDialog);
+Vue.component("app-edit-meetup-date-dialog", EditMeetupDateDialog);
+Vue.component("app-edit-meetup-time-dialog", EditMeetupTimeDialog);
+Vue.component("app-register-for-meetup", RegisterDialog);
 Vue.filter("date", DateFilter);
 Vue.config.productionTip = false;
 
